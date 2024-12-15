@@ -1,0 +1,109 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.row-title::before {
+  content: "";
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  z-index: -1;
+  background-color: black;
+  transition: transform 400ms ease-in-out;
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.row-title:hover::before,
+.row-title:focus::before {
+  transform: scaleX(1);
+}
+.row-title {
+  z-index: 1;
+}
+
+.row-title:hover,
+.row-title:focus {
+  color: white;
+}
+.toggle-button {
+  position: relative;
+  display: flex;
+  width: 200px;
+  height: 40px;
+  border: 2px solid #0a2540;
+  border-radius: 20px;
+  overflow: hidden;
+  background-color: white;
+  align-items: center; /* Căn giữa nội dung theo chiều dọc */
+}
+
+.toggle-option {
+  flex: 1;
+  z-index: 1; /* Đảm bảo nút nằm trên slider */
+  text-align: center; /* Căn chữ giữa theo chiều ngang */
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  color: #0a2540;
+  background-color: transparent;
+  transition: color 0.3s;
+  line-height: 40px; /* Giúp chữ căn chính giữa chiều cao */
+}
+
+.toggle-option.active {
+  color: #6ef2c1;
+}
+
+.toggle-option:not(.active):hover {
+  color: #0a2540;
+}
+
+/* Slider hiệu ứng chạy */
+.slider {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  border-radius: 20px;
+  background-color: #0a2540;
+  transition: transform 0.3s ease-in-out;
+  z-index: 0; /* Slider nằm dưới text */
+}
+
+.slider.left {
+  transform: translateX(0);
+}
+
+.slider.right {
+  transform: translateX(100%);
+}
+
+.fade-in {
+  animation: fadeIn 0.8s ease-in-out forwards;
+}
+
+.fade-out {
+  animation: fadeOut 0.8s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
