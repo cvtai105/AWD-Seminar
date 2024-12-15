@@ -3,14 +3,14 @@ services:
     build:
       context: ./UI
       dockerfile: Dockerfile
-    image: cvtai/seminar-ui:${UI_VERSION}
+    image: cvtai/seminar-ui:v${UI_VERSION}
     ports:
       - "5173:5173"
     environment:
       - VITE_IDENTITY_API_URL=${VITE_IDENTITY_API_URL}
  
       - VITE_GOOGLE_CLIENT_ID=${VITE_GOOGLE_CLIENT_ID}
-      - VITE_GOOGLE_REDIRECT_URI = ${VITE_GOOGLE_REDIRECT_URI}
+      - VITE_GOOGLE_REDIRECT_URI=${VITE_GOOGLE_REDIRECT_URI}
  
       - VITE_TMDB_API_KEY=${VITE_TMDB_API_KEY}
       - VITE_TMDB_API_URL=${VITE_TMDB_API_URL}
@@ -20,7 +20,7 @@ services:
     build:
       context: ./IdentityService
       dockerfile: Dockerfile
-    image: cvtai/identity-api:${IDENTITY_API_VERSION}
+    image: cvtai/identity-api:v${IDENTITY_API_VERSION}
     ports:
       - "8080:8080"  # Map HTTP port
       - "8081:8081"  # Map HTTPS port
