@@ -3,6 +3,10 @@ name: Deploy Identity Service to Azure Virtual Machine
 on:
   push:
     branches: [ main ]
+    
+
+env:
+  version: 1.0.0
 
 jobs:
   deploy:
@@ -11,6 +15,21 @@ jobs:
 
       - name: Checkout ⚙️
         uses: actions/checkout@v4
+      
+      - name: Make .env file 📄
+        run: |
+          echo "IDENTITY_API_VERSION=${{ env.version }}" > .env
+
+          echo "CORS_ALLOWED_ORIGINS=*" >> .env
+
+          echo "DB_CONNECTION_STRING=Host=ep-summer-mode-a1edo8x9.ap-southeast-1.aws.neon.tech;Port=5432;Database=verceldb;Username=default;Password=3Qkce7WuiHDo;SSL Mode=Require" >> .env
+
+          echo "GOOGLE_CLIENT_ID=907759503353-5v3aon6s0fdhklod6qsc6bedrt3vketk.apps.googleusercontent.com" >> .env
+          echo "GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}" >> .env
+          
+          echo "JWT_SECRET=test-secret-key" >> .env
+          echo "JWT_ISSUER=http://localhost:8080" >> .env
+          echo "JWT_AUDIENCE=http://localhost:8080" >> .env
 
       - name: Build images 🐳
         run: |
@@ -24,11 +43,25 @@ jobs:
 
       - name: Push images 🐳
         run: |
-          docker compose push
+          docker compose push IdentityService
 
-      - name: Copy .env and docker-compose file to VM📄
-        run: |
-          scp .env ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USERNAME }}/identityservice/.env
+      - name: copy .env file to server
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: .env
+          target: /Seminar-CI-CD/.env
+
+      - name: copy compose file to server
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: docker-compose.yml
+          target: /Seminar-CI-CD/docker-compose.yml
 
       - name: Pull and Deploy by SSH 🚀
         uses: appleboy/ssh-action@v0.1.4
@@ -37,7 +70,7 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            docker pull <your-docker-hub-username>/identityservice:latest
-            docker stop identityservice || true
-            docker rm identityservice || true
-            docker run -d --name identityservice --restart always -p 8080:8080 <your-docker-hub-username>/identityservice:latest
+            docker pull cvtai/seminar-identity-api:${{ env.version }}
+            cd Seminar-CI-CD
+            docker compose down IdentityService Database
+            docker compose up IdentityService Database -d 

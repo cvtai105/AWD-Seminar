@@ -3,7 +3,7 @@ services:
     build:
       context: ./UI
       dockerfile: Dockerfile
-    image: cvtai/seminar-ui:v${UI_VERSION}
+    # image: cvtai/seminar-ui:${UI_VERSION}
     ports:
       - "5173:5173"
     environment:
@@ -20,7 +20,7 @@ services:
     build:
       context: ./IdentityService
       dockerfile: Dockerfile
-    image: cvtai/identity-api:v${IDENTITY_API_VERSION}
+    image: cvtai/seminar-identity-api:${IDENTITY_API_VERSION}
     ports:
       - "8080:8080"  # Map HTTP port
       - "8081:8081"  # Map HTTPS port
@@ -34,7 +34,7 @@ services:
       - GoogleAuthSettings__ClientSecret=${GOOGLE_CLIENT_SECRET}
       - AllowedHosts=${CORS_ALLOWED_ORIGINS}
     depends_on:
-      - Database
+      - Database 
 
   # database for testing
   Database:
