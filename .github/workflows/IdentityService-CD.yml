@@ -43,7 +43,7 @@ jobs:
 
       - name: Push images 🐳
         run: |
-          docker compose push identity-api
+          docker compose push cvtai/seminar-identity-api:${{ env.version }}
 
       - name: copy .env file to server
         uses: appleboy/scp-action@master
