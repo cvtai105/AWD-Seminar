@@ -43,7 +43,7 @@ jobs:
       - name: Install node ⚙️
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: lts/*
       
       # - name: Sleep for 30 seconds
       #   run: sleep 30s
