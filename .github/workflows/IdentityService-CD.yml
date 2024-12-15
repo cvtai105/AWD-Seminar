@@ -26,6 +26,10 @@ jobs:
         run: |
           docker compose push
 
+      - name: Copy .env and docker-compose file to VM📄
+        run: |
+          scp .env ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USERNAME }}/identityservice/.env
+
       - name: Pull and Deploy by SSH 🚀
         uses: appleboy/ssh-action@v0.1.4
         with:
