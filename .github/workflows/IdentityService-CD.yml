@@ -24,7 +24,7 @@ jobs:
 
       - name: Push images 🐳
         run: |
-          docker push cvtai/identity-api:${{ env.IDENTITY_API_VERSION }}
+          docker compose push
 
       - name: Pull and Deploy by SSH 🚀
         uses: appleboy/ssh-action@v0.1.4
