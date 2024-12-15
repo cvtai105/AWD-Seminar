@@ -19,6 +19,10 @@ jobs:
           echo "GOOGLE_CLIENT_ID=907759503353-5v3aon6s0fdhklod6qsc6bedrt3vketk.apps.googleusercontent.com" >> .env
           echo "GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}" >> .env
           
+          echo "CORS_ALLOWED_ORIGINS=*" >> .env
+
+          echo "DB_CONNECTION_STRING=Host=Database;Port=5432;Database=testdb;Username=postgres;Password=postgres;SSL Mode=Require" >> .env
+
           echo "JWT_SECRET=test-secret-key" >> .env
           echo "JWT_ISSUER=http://localhost:8080" >> .env
           echo "JWT_AUDIENCE=http://localhost:8080" >> .env
@@ -38,21 +42,14 @@ jobs:
       # Start apis and database
       - name: Start containers 🐳
         run: |
-          docker compose -f docker-compose.yml up -d
+          docker compose -f docker-compose.test.yml up -d
 
       - name: Install node ⚙️
         uses: actions/setup-node@v4
         with:
           node-version: lts/*
-      
-      # - name: Sleep for 30 seconds
-      #   run: sleep 30s
-      #   shell: bash
-  
       - name: Install dependencies
-        run: |
-          cd IntegrationTest
-          npm ci
+        run: npm ci
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
       - name: Run Playwright tests

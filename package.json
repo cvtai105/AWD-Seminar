@@ -1,12 +1,12 @@
 {
-  "name": "integrationtest",
+  "name": "5.seminar-demo",
   "version": "1.0.0",
+  "description": "1. Create .env file and copy content from .env.template \r 2. Run docker:\r ```bash\r docker compose up -d\r ```",
   "main": "index.js",
   "scripts": {},
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
   "devDependencies": {
     "@playwright/test": "^1.49.1",
     "@types/node": "^22.10.2"

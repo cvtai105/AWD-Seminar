@@ -1,2 +1,7 @@
 keypaire.rsa.vm1.pem
 .env
+node_modules/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/

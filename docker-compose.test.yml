@@ -3,7 +3,6 @@ services:
     build:
       context: ./UI
       dockerfile: Dockerfile
-    # image: cvtai/seminar-ui:${UI_VERSION}
     ports:
       - "5173:5173"
     environment:
@@ -20,7 +19,6 @@ services:
     build:
       context: ./IdentityService
       dockerfile: Dockerfile
-    image: cvtai/seminar-identity-api:${IDENTITY_API_VERSION}
     ports:
       - "8080:8080"  # Map HTTP port
       - "8081:8081"  # Map HTTPS port
