@@ -32,7 +32,7 @@ services:
       - GoogleAuthSettings__ClientSecret=${GOOGLE_CLIENT_SECRET}
       - AllowedHosts=${CORS_ALLOWED_ORIGINS}
     depends_on:
-      - Database 
+      - database 
 
   # database for testing
   database:
