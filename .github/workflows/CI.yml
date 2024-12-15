@@ -48,7 +48,9 @@ jobs:
       #   shell: bash
   
       - name: Install dependencies
-        run: cd tests & npm install
+        run: |
+          cd tests
+          npm install
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
       - name: Run Playwright tests
