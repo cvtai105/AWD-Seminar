@@ -50,7 +50,7 @@ jobs:
       - name: Install dependencies
         run: |
           cd tests
-          npm install
+          npm install -D @playwright/test
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
       - name: Run Playwright tests

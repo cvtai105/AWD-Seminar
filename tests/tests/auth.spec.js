@@ -44,3 +44,5 @@ test('register and login', async ({ page }) => {
   await page.getByRole('button', { name: 'Login' }).click();
   await expect(page.getByText('Invalid email')).toBeVisible();
 });
+
+

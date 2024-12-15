@@ -18,7 +18,7 @@ function Register() {
 
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/auth/register`,
+        `${import.meta.env.VITE_IDENTITY_API_URL}/api/auth/register`,
         {
           method: "POST",
           headers: {
@@ -34,9 +34,12 @@ function Register() {
       );
 
       if (!response.ok) {
+        const data = await response.json();
         throw new Error(data.message);
       }
-      navigate("/login");
+      const data = await response.json();
+      login(data.accessToken, data.refreshToken);
+      navigate("/");
     } catch (err) {
       setError(err.message);
     }

@@ -25,7 +25,7 @@ function Home() {
     const refreshToken = localStorage.getItem("refreshToken");
     instance
       .post(
-        `${import.meta.env.VITE_BACKEND_URL}/api/auth/logout`,
+        `${import.meta.env.VITE_IDENTITY_API_URL}/api/auth/logout`,
         JSON.stringify({ refreshToken: refreshToken }),
         {
           headers: {

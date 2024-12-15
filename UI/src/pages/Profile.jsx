@@ -12,7 +12,7 @@ function Profile() {
     if (!isAuthenticated) {
     } else {
       setLoading(true);
-      fetchWithAuth(`${import.meta.env.VITE_BACKEND_URL}/api/auth/profile`)
+      fetchWithAuth(`${import.meta.env.VITE_IDENTITY_API_URL}/api/auth/profile`)
         .then((data) => {
           console.log(data);
           setUserData(data.data);
