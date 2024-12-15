@@ -1,5 +1,5 @@
 services:
-  UI:
+  ui:
     build:
       context: ./UI
       dockerfile: Dockerfile
@@ -15,7 +15,7 @@ services:
       - VITE_TMDB_API_URL=${VITE_TMDB_API_URL}
       - VITE_TMDB_ACCESS_TOKEN=${VITE_TMDB_ACCESS_TOKEN}
 
-  IdentityService:
+  identity-api:
     build:
       context: ./IdentityService
       dockerfile: Dockerfile
@@ -35,7 +35,7 @@ services:
       - Database 
 
   # database for testing
-  Database:
+  database:
     image: postgres:13
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
