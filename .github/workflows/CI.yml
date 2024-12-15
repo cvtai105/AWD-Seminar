@@ -51,7 +51,7 @@ jobs:
   
       - name: Install dependencies
         run: |
-          cd tests
+          cd IntegrationTest
           npm ci
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
