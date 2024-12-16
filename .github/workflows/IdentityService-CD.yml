@@ -32,20 +32,6 @@ jobs:
           echo "JWT_ISSUER=http://localhost:8080" >> .env
           echo "JWT_AUDIENCE=http://localhost:8080" >> .env
 
-      - name: Pull and Deploy by SSH 🚀
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          port: 22
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            cd Seminar-CI-CD
-            docker ps
-            docker compose -f docker-compose.host.yml pull identity-api
-            docker compose -f docker-compose.host.yml up identity-api -d
-            docker ps
-
       - name: Build images 🐳
         run: |
           docker compose -f docker-compose.host.yml build identity-api
@@ -60,7 +46,7 @@ jobs:
         run: |
           docker compose -f docker-compose.host.yml push identity-api
 
-      - name: Copy file via ssh key
+      - name: Copy file via SSH 🚀
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.SSH_HOST }}
@@ -69,5 +55,19 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: ".env,docker-compose.host.yml"
           target: Seminar-CI-CD/
+
+      - name: Pull and Deploy via SSH 🚀
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          port: 22
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd Seminar-CI-CD
+            docker ps
+            docker compose -f docker-compose.host.yml pull identity-api
+            docker compose -f docker-compose.host.yml up identity-api -d
+            docker ps
 
        
