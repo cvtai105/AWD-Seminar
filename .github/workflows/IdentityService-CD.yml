@@ -60,8 +60,8 @@ jobs:
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd Seminar-CI-CD
             docker compose -f docker-compose.host.yml pull identity-api
