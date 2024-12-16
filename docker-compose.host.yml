@@ -1,7 +1,7 @@
 services:
   identity-api:
     build:
-      context: ./UI
+      context: ./IdentityService
       dockerfile: Dockerfile
     image: seminar-identity-api
     ports:
