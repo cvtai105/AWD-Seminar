@@ -1,8 +1,6 @@
 name: Run Playwright Tests 🎭
 
 on:
-  push:
-    branches: [ main ]
   pull_request:
     paths-ignore: 
       - 'docker-compose.host.yml'
