@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
 # http port
 EXPOSE 8080
@@ -14,7 +14,7 @@ WORKDIR "/src/IA03"
 RUN dotnet build "IA03.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "IA03.csproj" -c Release -o /app/publish
+RUN dotnet publish "IA03.csproj" -c Release -o /app/publish -a $TARGETARCH
 
 FROM base AS final
 WORKDIR /app
