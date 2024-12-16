@@ -3,7 +3,7 @@ services:
     build:
       context: ./IdentityService
       dockerfile: Dockerfile
-    image: seminar-identity-api
+    image: cvtai/seminar-identity-api:${IDENTITY_API_VERSION}
     ports:
       - "8080:8080"  # Map HTTP port
       - "8081:8081"  # Map HTTPS port
