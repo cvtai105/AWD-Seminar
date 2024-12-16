@@ -3,12 +3,7 @@ name: Deploy Identity Service to Azure Virtual Machine
 on:
   push:
     paths: 
-      - 'IdentityService/**'
       - '.github/workflows/IdentityService-CD.yml'
-      - 'docker-compose.host.yml'
-      - 'tests/**'
-      - package.json
-      - playwright.config.ts
     branches: [ main ]
 
 env:
