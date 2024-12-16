@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 env:
-  version: 2.0
+  version: 2.1
 
 jobs:
   deploy:
@@ -48,6 +48,7 @@ jobs:
       - name: Build and Push images 🐳
         run: |
           docker compose -f docker-compose.host.yml build identity-api
+          docker tag seminar-identity-api cvtai/seminar-identity-api:${{ env.version }}
           docker push cvtai/identity-api:$${{ env.version }}
   
       - name: Copy file via SSH 🚀
