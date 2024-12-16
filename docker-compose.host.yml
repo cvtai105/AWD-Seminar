@@ -1,5 +1,8 @@
 services:
   identity-api:
+    build:
+      context: ./UI
+      dockerfile: Dockerfile
     image: seminar-identity-api
     ports:
       - "8080:8080"  # Map HTTP port
