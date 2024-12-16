@@ -48,7 +48,7 @@ jobs:
       - name: Build and Push images 🐳
         run: |
           docker compose -f docker-compose.host.yml build identity-api
-          docker tag seminar-identity-api cvtai/seminar-identity-api:${{ env.version }}
+          docker tag docker.io/library/seminar-identity-api cvtai/seminar-identity-api:${{ env.version }}
           docker push cvtai/identity-api:$${{ env.version }}
   
       - name: Copy file via SSH 🚀
