@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 env:
-  version: 2.2
+  version: 2.21
 
 jobs:
   deploy:
