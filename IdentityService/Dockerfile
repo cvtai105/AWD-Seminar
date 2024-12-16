@@ -14,7 +14,7 @@ WORKDIR "/src/IA03"
 RUN dotnet build "IA03.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "IA03.csproj" -c Release -o /app/publish -a $TARGETARCH
+RUN dotnet publish "IA03.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
