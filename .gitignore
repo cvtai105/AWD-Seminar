@@ -1,4 +1,5 @@
 keypaire.rsa.vm1.pem
+vm2_key.pem
 .env
 node_modules/
 /test-results/
