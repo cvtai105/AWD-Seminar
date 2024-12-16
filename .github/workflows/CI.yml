@@ -42,8 +42,9 @@ jobs:
       # Start apis and database
       - name: Start containers 🐳
         run: |
-          docker compose -f docker-compose.test.yml up -d
+          docker compose -f docker-compose.dev.yml up -d
 
+      # Setup and test locally
       - name: Install node ⚙️
         uses: actions/setup-node@v4
         with:
@@ -60,3 +61,5 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 30
+
+      #TODO: renew .env to product and perform smoke tests

@@ -1,4 +1,4 @@
-name: Deploy Identity ce to Azure Virtual Machine 
+name: Deploy Identity Service to Azure Virtual Machine 
 
 on:
   push:
@@ -20,21 +20,20 @@ jobs:
       - name: Make .env file 📄
         run: |
           echo "IDENTITY_API_VERSION=${{ env.version }}" > .env
-
           echo "CORS_ALLOWED_ORIGINS=*" >> .env
-
           echo "DB_CONNECTION_STRING=Host=ep-summer-mode-a1edo8x9.ap-southeast-1.aws.neon.tech;Port=5432;Database=verceldb;Username=default;Password=3Qkce7WuiHDo;SSL Mode=Require" >> .env
-
           echo "GOOGLE_CLIENT_ID=907759503353-5v3aon6s0fdhklod6qsc6bedrt3vketk.apps.googleusercontent.com" >> .env
           echo "GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}" >> .env
-          
           echo "JWT_SECRET=test-secret-key" >> .env
           echo "JWT_ISSUER=http://localhost:8080" >> .env
           echo "JWT_AUDIENCE=http://localhost:8080" >> .env
 
-      - name: Build images 🐳
+      - name: Build and Push images 🐳
         run: |
+          docker compose -f docker-compose.host.yml buildx build identity-api-arm64 --platform linux/arm64 
           docker compose -f docker-compose.host.yml build identity-api
+
+          docker compose -f docker-compose.host.yml push
 
       - name: Login to Docker Hub 🐳
         uses: docker/login-action@v2
@@ -66,8 +65,8 @@ jobs:
           script: |
             cd Seminar-CI-CD
             docker ps
-            docker compose -f docker-compose.host.yml pull identity-api
-            docker compose -f docker-compose.host.yml up identity-api -d
+            docker compose -f docker-compose.host.yml pull
+            docker compose -f docker-compose.host.yml up
             docker ps
 
        
