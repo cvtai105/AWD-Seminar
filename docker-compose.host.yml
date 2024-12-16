@@ -1,6 +1,6 @@
 services:
   identity-api:
-    image: cvtai/seminar-identity-api:${IDENTITY_API_VERSION}
+    image: seminar-identity-api
     ports:
       - "8080:8080"  # Map HTTP port
       - "8081:8081"  # Map HTTPS port
