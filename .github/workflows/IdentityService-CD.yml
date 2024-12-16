@@ -6,6 +6,9 @@ on:
       - 'IdentityService/**'
       - '.github/workflows/IdentityService-CD.yml'
       - 'docker-compose.host.yml'
+      - 'tests/**'
+      - package.json
+      - playwright.config.ts
     branches: [ main ]
 
 env:
