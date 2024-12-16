@@ -9,9 +9,9 @@ on:
 env:
   version: 2.21
 
-jobs:
+jobs
   deploy:
-    # needs: test
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout ⚙️
