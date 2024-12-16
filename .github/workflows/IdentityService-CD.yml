@@ -41,18 +41,18 @@ jobs:
         with:
           driver: docker
         
-      - name: Build images
-        uses: docker/bake-action@master
-        with:
-          load: true
-          files: docker-compose.host.yml
-          targets: identity-api-arm64
-          
-      - name: Build and Push images 🐳
+      - name: Build and Push images for ARM64 🐳
         run: |
-          docker compose -f docker-compose.host.yml build identity-api
-          docker compose -f docker-compose.host.yml push
+          cd IdentityService
+          docker buildx build --platform linux/arm64 -t cvtai/seminar-identity-api-arm64:${{ env.version }} .
+          docker push cvtai/seminar-identity-api-arm64:${{ env.version }}
+          cd ..
 
+          - name: Build and Push images 🐳
+          run: |
+            docker compose -f docker-compose.host.yml build identity-api
+            docker compose -f docker-compose.host.yml push
+  
       - name: Copy file via SSH 🚀
         uses: appleboy/scp-action@v0.1.7
         with:
