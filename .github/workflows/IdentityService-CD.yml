@@ -9,7 +9,7 @@ on:
 env:
   version: 3.01
 
-jobs
+jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
