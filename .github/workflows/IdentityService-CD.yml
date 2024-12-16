@@ -10,62 +10,61 @@ env:
   version: 1.0.0
 
 jobs:
-  # test:
-  #   runs-on: ubuntu-latest
-  #   steps:
-
-  #     - name: Checkout ⚙️
-  #       uses: actions/checkout@v4
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout ⚙️
+        uses: actions/checkout@v4
     
-  #     - name: Make .env file 📄
-  #       run: |
-  #         echo "GOOGLE_CLIENT_ID=907759503353-5v3aon6s0fdhklod6qsc6bedrt3vketk.apps.googleusercontent.com" >> .env
-  #         echo "GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}" >> .env
+      - name: Make .env file 📄
+        run: |
+          echo "GOOGLE_CLIENT_ID=907759503353-5v3aon6s0fdhklod6qsc6bedrt3vketk.apps.googleusercontent.com" >> .env
+          echo "GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}" >> .env
           
-  #         echo "CORS_ALLOWED_ORIGINS=*" >> .env
+          echo "CORS_ALLOWED_ORIGINS=*" >> .env
 
-  #         echo "DB_CONNECTION_STRING=Host=Database;Port=5432;Database=testdb;Username=postgres;Password=postgres;SSL Mode=Require" >> .env
+          echo "DB_CONNECTION_STRING=Host=Database;Port=5432;Database=testdb;Username=postgres;Password=postgres;SSL Mode=Require" >> .env
 
-  #         echo "JWT_SECRET=test-secret-key" >> .env
-  #         echo "JWT_ISSUER=http://localhost:8080" >> .env
-  #         echo "JWT_AUDIENCE=http://localhost:8080" >> .env
+          echo "JWT_SECRET=test-secret-key" >> .env
+          echo "JWT_ISSUER=http://localhost:8080" >> .env
+          echo "JWT_AUDIENCE=http://localhost:8080" >> .env
 
-  #         echo "POSTGRES_HOST=localhost" >> .env
-  #         echo "POSTGRES_USER=postgres" >> .env
-  #         echo "POSTGRES_PASSWORD=postgres" >> .env
-  #         echo "POSTGRES_DB=testdb" >> .env
+          echo "POSTGRES_HOST=localhost" >> .env
+          echo "POSTGRES_USER=postgres" >> .env
+          echo "POSTGRES_PASSWORD=postgres" >> .env
+          echo "POSTGRES_DB=testdb" >> .env
 
-  #         echo "VITE_IDENTITY_API_URL=http://localhost:8080" > .env
-  #         echo "VITE_GOOGLE_CLIENT_ID=907759503353-5v3aon6s0fdhklod6qsc6bedrt3vketk.apps.googleusercontent.com" >> .env
-  #         echo "VITE_GOOGLE_REDIRECT_URI=http://localhost:5173/oauth2/google/redirected" >> .env
-  #         echo "VITE_TMDB_API_KEY=b745e42d282162944bdee5b09b352958" >> .env
-  #         echo "VITE_TMDB_API_URL=https://api.themoviedb.org/3" >> .env
-  #         echo "VITE_TMDB_ACCESS_TOKEN=eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiNzQ1ZTQyZDI4MjE2Mjk0NGJkZWU1YjA5YjM1Mjk1OCIsIm5iZiI6MTczMzg2NTE2My41MzEwMDAxLCJzdWIiOiI2NzU4YWVjYjk5MzU5YjA0NjhhNDc0N2MiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.WzMAVBJs0tAWE2n1cu6wh2591xPm8QX6D8eNkTmMF38" >> .env
+          echo "VITE_IDENTITY_API_URL=http://localhost:8080" > .env
+          echo "VITE_GOOGLE_CLIENT_ID=907759503353-5v3aon6s0fdhklod6qsc6bedrt3vketk.apps.googleusercontent.com" >> .env
+          echo "VITE_GOOGLE_REDIRECT_URI=http://localhost:5173/oauth2/google/redirected" >> .env
+          echo "VITE_TMDB_API_KEY=b745e42d282162944bdee5b09b352958" >> .env
+          echo "VITE_TMDB_API_URL=https://api.themoviedb.org/3" >> .env
+          echo "VITE_TMDB_ACCESS_TOKEN=eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiNzQ1ZTQyZDI4MjE2Mjk0NGJkZWU1YjA5YjM1Mjk1OCIsIm5iZiI6MTczMzg2NTE2My41MzEwMDAxLCJzdWIiOiI2NzU4YWVjYjk5MzU5YjA0NjhhNDc0N2MiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.WzMAVBJs0tAWE2n1cu6wh2591xPm8QX6D8eNkTmMF38" >> .env
 
-  #     # Start apis and database
-  #     - name: Start containers 🐳
-  #       run: |
-  #         docker compose -f docker-compose.dev.yml up -d
+      # Start apis and database
+      - name: Start containers 🐳
+        run: |
+          docker compose -f docker-compose.dev.yml up -d
 
-  #     # Setup and test locally
-  #     - name: Install node ⚙️
-  #       uses: actions/setup-node@v4
-  #       with:
-  #         node-version: lts/*
-  #     - name: Install dependencies
-  #       run: npm ci
-  #     - name: Install Playwright Browsers
-  #       run: npx playwright install --with-deps
-  #     - name: Run Playwright tests
-  #       run: npx playwright test
-  #     - uses: actions/upload-artifact@v4
-  #       if: ${{ !cancelled() }}
-  #       with:
-  #         name: playwright-report
-  #         path: playwright-report/
-  #         retention-days: 30
+      # Setup and test locally
+      - name: Install node ⚙️
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+      - name: Install dependencies
+        run: npm ci
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+      - name: Run Playwright tests
+        run: npx playwright test
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
   deploy:
-    # needs: test
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout ⚙️
