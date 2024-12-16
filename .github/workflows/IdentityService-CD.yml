@@ -44,7 +44,7 @@ jobs:
       - name: Build and Push images for ARM64 🐳
         run: |
           cd IdentityService
-          docker -f Dockerfile-ARM64 buildx build --platform linux/arm64 -t cvtai/seminar-identity-api-arm64:${{ env.version }} .
+          docker buildx build -f Dockerfile-ARM64 --platform linux/arm64 -t cvtai/seminar-identity-api-arm64:${{ env.version }} .
           docker push cvtai/seminar-identity-api-arm64:${{ env.version }}
           cd ..
 
