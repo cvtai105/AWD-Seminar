@@ -47,7 +47,7 @@ jobs:
 
       - name: Build and Push images 🐳
         run: |
-          docker compose -f docker-compose.host.yml build identity-api -t cvtai/identity-api:$${{ env.version }}
+          docker compose -f docker-compose.host.yml build identity-api
           docker push cvtai/identity-api:$${{ env.version }}
   
       - name: Copy file via SSH 🚀
@@ -70,7 +70,7 @@ jobs:
           script: |
             cd Seminar-CI-CD
             docker ps
-            docker compose -f docker-compose.host.yml pull cvtai/identity-api:$${{ env.version }}
+            docker pull cvtai/identity-api:$${{ env.version }}
             docker compose -f docker-compose.host.yml down
             docker compose -f docker-compose.host.yml up -d
             docker ps
