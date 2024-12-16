@@ -48,10 +48,10 @@ jobs:
           docker push cvtai/seminar-identity-api-arm64:${{ env.version }}
           cd ..
 
-          - name: Build and Push images 🐳
-          run: |
-            docker compose -f docker-compose.host.yml build identity-api
-            docker compose -f docker-compose.host.yml push
+      - name: Build and Push images 🐳
+        run: |
+          docker compose -f docker-compose.host.yml build identity-api
+          docker compose -f docker-compose.host.yml push
   
       - name: Copy file via SSH 🚀
         uses: appleboy/scp-action@v0.1.7
