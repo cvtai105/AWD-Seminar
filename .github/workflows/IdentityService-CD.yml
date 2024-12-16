@@ -13,6 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
+      
       - name: Checkout ⚙️
         uses: actions/checkout@v4
       
@@ -30,6 +31,20 @@ jobs:
           echo "JWT_SECRET=test-secret-key" >> .env
           echo "JWT_ISSUER=http://localhost:8080" >> .env
           echo "JWT_AUDIENCE=http://localhost:8080" >> .env
+
+      - name: Pull and Deploy by SSH 🚀
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          port: 22
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd Seminar-CI-CD
+            docker ps
+            docker compose -f docker-compose.host.yml pull identity-api
+            docker compose -f docker-compose.host.yml up identity-api -d
+            docker ps
 
       - name: Build images 🐳
         run: |
@@ -55,14 +70,4 @@ jobs:
           source: ".env,docker-compose.host.yml"
           target: Seminar-CI-CD/
 
-      - name: Pull and Deploy by SSH 🚀
-        uses: appleboy/ssh-action@v0.1.4
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          port: 22
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            cd Seminar-CI-CD
-            docker compose -f docker-compose.host.yml pull identity-api
-            docker compose -f docker-compose.host.yml up identity-api -d 
+       
